@@ -1,0 +1,52 @@
+{
+  "root": "apps/koi-jabo",
+  "sourceRoot": "apps/koi-jabo/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/koi-jabo",
+        "main": "apps/koi-jabo/src/main.ts",
+        "tsConfig": "apps/koi-jabo/tsconfig.app.json",
+        "assets": ["apps/koi-jabo/src/assets"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/koi-jabo/src/environments/environment.ts",
+              "with": "apps/koi-jabo/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:node",
+      "options": {
+        "buildTarget": "koi-jabo:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/koi-jabo/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/koi-jabo"],
+      "options": {
+        "jestConfig": "apps/koi-jabo/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
